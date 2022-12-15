@@ -1,102 +1,103 @@
-{%- comment -%} Collection Slider Color {%- endcomment -%}
+{%- comment -%} Collection Slider Color mayank {%- endcomment -%}
 <div class="collection-slider">
-    <div class="container">
-        {%- unless section.settings.section_title == blank -%}
-            <div class="collection-slider-heading-wrapper">
-                <h3 class="collection-slider-title">{{section.settings.section_title}}</h3>
+  <div class="container">
+    {%- unless section.settings.section_title == blank -%}
+      <div class="collection-slider-heading-wrapper">
+        <h3 class="collection-slider-title">{{ section.settings.section_title }}</h3>
+      </div>
+    {%- endunless -%}
+    <div class="collection-slider-wrapper swiper">
+      <div class="swiper-wrapper">
+        {% for product in collections[section.settings.collection_handle].products limit: 12 %}
+          <div class="product-slide swiper-slide">
+            <a href="{{ product.url }}">
+              <div class="product-image-wrapper">
+                <div class="image">
+                  {%- render 'srcset'
+                    , src_alt: product.featured_image.alt,
+                    src_name: product.featured_image,
+                    load_blur: true -%}
+                </div>
+                {% if product.images[1] != blank %}
+                  <div class="secondary-image">
+                    {%- render 'srcset'
+                      , src_alt: product.images[1].alt,
+                      src_name: product.images[1],
+                      load_blur: true -%}
+                  </div>
+                {% endif %}
               </div>
-        {%- endunless -%}
-        <div class="collection-slider-wrapper swiper">
-            <div class="swiper-wrapper">
-                {% for product in collections[section.settings.collection_handle].products  limit: 12  %}
-                    <div class="product-slide swiper-slide">
-                       <a href="{{ product.url }}">
-                           <div class="product-image-wrapper">
-                               <div class="image">
-                                   {%- render 'srcset', 
-                                       src_alt:product.featured_image.alt,
-                                       src_name:product.featured_image,
-                                       load_blur:true 
-                                       -%}
-                               </div>
-                               {% if product.images[1] != blank %}
-                                   <div class="secondary-image">
-                                     {%- render 'srcset', 
-                                       src_alt:product.images[1].alt,
-                                       src_name:product.images[1],
-                                       load_blur:true 
-                                       -%}
-                                   </div>
-                                 {% endif %}
-                           </div>
-                       </a>
-                       <div class="product-details-wrapper">
-                           <div class="product-name"><p>{{ product.title }}</p></div>
-                           <div class="product-price-wrapper">
-                               <div class="price"><p>{{ product.price | money }}</p></div>
-                               {% if product.compare_at_price != blank %}
-                                   <div class="compare-price"><p>{{ product.compare_at_price | money }}</p></div>
-                               {% endif %}
-                           </div>
-                         </div>
-                    </div>
-               {% endfor %}
+            </a>
+            <div class="product-details-wrapper">
+              <div class="product-name">
+                <p>{{ product.title }}</p>
+              </div>
+              <div class="product-price-wrapper">
+                <div class="price">
+                  <p>{{ product.price | money }}</p>
+                </div>
+                {% if product.compare_at_price != blank %}
+                  <div class="compare-price">
+                    <p>{{ product.compare_at_price | money }}</p>
+                  </div>
+                {% endif %}
+              </div>
             </div>
-        </div>
-        
+          </div>
+        {% endfor %}
+      </div>
     </div>
+
+  </div>
 </div>
 {%- schema -%}
-{
-    "name":"Collection slider",
-    "settings":[
-        {
-            "type":"text",
-            "id":"section_title",
-            "label":"Section title"
-        },
-        {
-            "type":"color",
-            "id":"section_title_color",
-            "label":"Section title color"
-        },
-        {
-      "type": "select",
-      "id": "text_alignment",
-      "label": "Text  alignment",
-      "default": "left",
-      "options": [
+  {
+    "name": "Collection slider",
+    "settings": [
       {
-        "value": "left",
-        "label": "Left"
+        "type": "text",
+        "id": "section_title",
+        "label": "Section title"
       },
       {
-        "value": "right",
-        "label": "Right"
+        "type": "color",
+        "id": "section_title_color",
+        "label": "Section title color"
       },
       {
-        "value": "center",
-        "label": "Center"
+        "type": "select",
+        "id": "text_alignment",
+        "label": "Text  alignment",
+        "default": "left",
+        "options": [
+          {
+            "value": "left",
+            "label": "Left"
+          }, {
+            "value": "right",
+            "label": "Right"
+          }, {
+            "value": "center",
+            "label": "Center"
+          }
+        ]
+      },
+      {
+        "type": "collection",
+        "id": "collection_handle",
+        "label": "Select collection"
+      }, {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text",
+        "default": "ADD TO BAG"
       }
-      ]
-    },
-    {
-      "type": "collection",
-      "id": "collection_handle",
-      "label": "Select collection"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button text",
-      "default": "ADD TO BAG"
-    }
     ],
     "presets": [
-    {
-      "name": "Collection Slider",
-      "category": "Collection"
-    }
+      {
+        "name": "Collection Slider",
+        "category": "Collection"
+      }
     ]
-}
+  }
 {%- endschema -%}
