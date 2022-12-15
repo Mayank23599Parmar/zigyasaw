@@ -1,0 +1,422 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_customizable_products -%}
+  {%- if section.blocks.size >= 1 -%}
+    <div class="dbtfy-customizable_products" hidden>
+      {%- for block in section.blocks -%}
+        {%- liquid
+          assign block_id = block.id
+          assign block_type = block.type
+
+          assign label = block.settings.title
+          assign label_handleized = label | handleize
+          assign options = block.settings.options | split: ','
+          assign is_required = block.settings.field_required
+          assign show_at_checkout = block.settings.show_at_checkout
+          assign group_type = block.settings.group_type
+          assign property_value = label
+
+          assign visibility = block.settings.visibility
+          assign product_id = block.settings.product.id
+          assign collection_handle = block.settings.collection
+          assign types = block.settings.types
+          assign tags = block.settings.tags
+
+          unless show_at_checkout
+            assign property_value = label | prepend: '_'
+          endunless
+        -%}
+
+        <div class="line-item-property__field line-item-field-{{ block_id }} spacer-bottom"
+             data-field-id="{{ block_id }}"
+             data-visibility-type="{{ visibility }}"
+             data-product-id="{{ product_id }}"
+             data-collection="{{ collection_handle }}"
+             data-types="{{ types }}"
+             data-tags="{{ tags }}">
+
+          {%- if block_type == "text" and label != blank -%}
+            {%- liquid
+              if is_required
+                assign field_class = "input--small full required"
+              else
+                assign field_class = "input--small full"
+              endif
+            -%}
+
+            {%- if label != blank -%}
+              <label for="{{ label_handleized }}">
+                {{ label }}
+              </label>
+
+              <input class="{{ field_class }}"
+                     id="{{ label_handleized }}"
+                     type="text"
+                     name="properties[{{ property_value }}]"
+                     {% if is_required %}required{% endif %}
+                     placeholder="{{ label }}">
+           {%- endif -%}
+
+          {%- elsif block_type == "checkbox" and label != blank -%}
+            {%- if label != blank -%}
+              <div class="checkbox">
+                <input type="hidden"
+                       name="properties[{{ property_value }}]"
+                       value="No">
+
+                <input id="{{ label_handleized }}"
+                       {% if is_required %}required class="required"{% endif %}
+                       type="checkbox"
+                       name="properties[{{ property_value }}]"
+                       value="Yes">
+
+                <label for="{{ label_handleized }}">
+                  {{ label }}
+                </label>
+              </div>
+            {%- endif -%}
+
+          {%- elsif block_type == "group" and options != blank -%}
+            {% if label != blank %}
+              <label for="{{ label_handleized }}">
+                {{ label }}
+              </label>
+            {%- endif -%}
+
+            {%- case group_type -%}
+              {%- when "dropdown" -%}
+                {% if label != blank %}
+                  <select class="select--small"
+                          id="{{ label_handleized }}"
+                          name="properties[{{ property_value }}]">
+
+                    {%- for option in options -%}
+                      {%- liquid
+                        assign option_name = option | strip
+
+                        unless show_at_checkout
+                          assign option_name = option_name | prepend: '_'
+                        endunless
+                      -%}
+
+                      <option value="{{ option_name }}">
+                        {{ option_name }}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                {%- endif -%}
+
+              {%- when "radio_buttons" -%}
+                {%- if label != blank -%}
+                  {%- for option in options -%}
+                    {%- assign option_name = option | strip -%}
+
+                    <div class="radio{% unless forloop.last %} spacer-bottom-xs{% endunless %}">
+                      <input id="radio_{{ forloop.index }}_{{ block_id }}"
+                             {% if forloop.first %}checked{% endif %}
+                             type="radio"
+                             name="properties[{{ property_value }}]"
+                             value="{{ option_name }}">
+
+                      <label for="radio_{{ forloop.index }}_{{ block_id }}">
+                        {{ option_name }}
+                      </label>
+                    </div>
+                  {%- endfor -%}
+                {%- endif -%}
+
+              {%- when "checkbox_group" -%}
+                {%- if label != blank -%}
+                  {%- for option in options -%}
+                    {%- assign option_name = option | strip -%}
+
+                    <div class="checkbox{% unless forloop.last %} spacer-bottom-xs{% endunless %}">
+                      <input class="cp-checkbox-group-checkbox"
+                             type="checkbox"
+                             id="checkbox_{{ forloop.index }}_{{ block_id }}"
+                             value="{{ option_name }}">
+
+                      <label for="checkbox_{{ forloop.index }}_{{ block_id }}">
+                        {{ option_name }}
+                      </label>
+                    </div>
+                  {%- endfor -%}
+
+                  <input type="hidden"
+                         class="cp-checkbox-group-hidden"
+                         name="properties[{{ property_value }}]">
+                {%- endif -%}
+            {%- endcase -%}
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "⚡ Customizable Products",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Help Center"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5462411-how-to-use-customizable-products-add-on-in-debutify-shopify-theme)"
+    },
+    {
+      "type": "paragraph",
+      "content": "To enable/disable this add-on, go to Theme settings > Debutify Add-ons."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text",
+      "name": "Text Field",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label"
+        },
+        {
+          "type": "checkbox",
+          "id": "field_required",
+          "label": "Required",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_at_checkout",
+          "label": "Show at checkout",
+          "default": true,
+          "info": "Uncheck this if you don't want the captured information to be shown in the order summary on the checkout pages."
+        },
+        {
+          "type": "header",
+          "content": "visibility settings"
+        },
+        {
+          "type": "radio",
+          "id": "visibility",
+          "label": "Visibility",
+          "options": [
+            {
+              "value": "all",
+              "label": "All"
+            },
+            {
+              "value": "collection",
+              "label": "Collection based"
+            },
+            {
+              "value": "type",
+              "label": "Type based"
+            },
+            {
+              "value": "tag",
+              "label": "Tag based"
+            },
+            {
+              "value": "product",
+              "label": "Product based"
+            }
+          ],
+          "info": "From lowest to higher priority.",
+          "default": "all"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "textarea",
+          "id": "types",
+          "label": "Product types",
+          "info": "Comma-separated"
+        },
+        {
+          "type": "textarea",
+          "id": "tags",
+          "label": "Product tags",
+          "info": "Comma-separated"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "name": "Checkbox",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label"
+        },
+        {
+          "type": "checkbox",
+          "id": "field_required",
+          "label": "Required",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "show_at_checkout",
+          "label": "Show at checkout",
+          "default": true,
+          "info": "Uncheck this if you don't want the captured information to be shown in the order summary on the checkout pages."
+        },
+        {
+          "type": "header",
+          "content": "visibility settings"
+        },
+        {
+          "type": "radio",
+          "id": "visibility",
+          "label": "Visibility",
+          "options": [
+            {
+              "value": "all",
+              "label": "All"
+            },
+            {
+              "value": "collection",
+              "label": "Collection based"
+            },
+            {
+              "value": "type",
+              "label": "Type based"
+            },
+            {
+              "value": "tag",
+              "label": "Tag based"
+            },
+            {
+              "value": "product",
+              "label": "Product based"
+            }
+          ],
+          "info": "From lowest to higher priority.",
+          "default": "all"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "textarea",
+          "id": "types",
+          "label": "Product types",
+          "info": "Comma-separated"
+        },
+        {
+          "type": "textarea",
+          "id": "tags",
+          "label": "Product tags",
+          "info": "Comma-separated"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    },
+    {
+      "type": "group",
+      "name": "Options Group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Label"
+        },
+        {
+          "type": "textarea",
+          "id": "options",
+          "label": "Options",
+          "info": "Separate your options with a comma."
+        },
+        {
+          "type": "select",
+          "id": "group_type",
+          "options": [
+            { "value": "dropdown", "label": "Drop-down" },
+            { "value": "radio_buttons", "label": "Radio buttons" },
+            { "value": "checkbox_group", "label": "Checkbox group" }
+          ],
+          "label": "Group type"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_at_checkout",
+          "label": "Show at checkout",
+          "default": true,
+          "info": "Uncheck this if you don't want the captured information to be shown in the order summary on the checkout pages."
+        },
+        {
+          "type": "header",
+          "content": "visibility settings"
+        },
+        {
+          "type": "radio",
+          "id": "visibility",
+          "label": "Visibility",
+          "options": [
+            {
+              "value": "all",
+              "label": "All"
+            },
+            {
+              "value": "collection",
+              "label": "Collection based"
+            },
+            {
+              "value": "type",
+              "label": "Type based"
+            },
+            {
+              "value": "tag",
+              "label": "Tag based"
+            },
+            {
+              "value": "product",
+              "label": "Product based"
+            }
+          ],
+          "info": "From lowest to higher priority.",
+          "default": "all"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "textarea",
+          "id": "types",
+          "label": "Product types",
+          "info": "Comma-separated"
+        },
+        {
+          "type": "textarea",
+          "id": "tags",
+          "label": "Product tags",
+          "info": "Comma-separated"
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

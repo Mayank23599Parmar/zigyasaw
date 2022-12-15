@@ -1,0 +1,26 @@
+{%- if content_for_header contains 'debutify' and settings.dbtfy_sold_items -%}
+  <div class="dbtfy dbtfy-sold_items"
+       data-position="{{ settings.dbtfy_sold_items_position }}"
+       data-id="soldItems-{{ product.id }}">
+
+    {%- unless settings.dbtfy_sold_items_icon == blank -%}
+      <span class="{{ settings.icon }} icon-width">
+        {{ settings.dbtfy_sold_items_icon }}
+      </span>
+    {%- endunless -%}
+
+    {%- unless settings.dbtfy_sold_items_prefix == blank -%}
+      <span> {{ settings.dbtfy_sold_items_prefix }}</span>
+    {% endunless %}
+
+    <strong class="number-sold_items"> {{ settings.dbtfy_sold_items_min }}</strong>
+
+    {% unless settings.dbtfy_sold_items_text == blank %}
+      <strong> {{ settings.dbtfy_sold_items_text }}</strong>
+    {% endunless %}
+
+    {%- unless settings.dbtfy_sold_items_suffix == blank -%}
+      <span> {{ settings.dbtfy_sold_items_suffix }}</span>
+    {%- endunless -%}
+  </div>
+{%- endif -%}

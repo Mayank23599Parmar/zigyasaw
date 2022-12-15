@@ -1,0 +1,17 @@
+@import "variable";
+@import "mixin";
+@import "grid";
+@import "./home-page";
+@import "./vendor/slider.scss";
+.mobile_show{
+    display: none;
+    @include mq("phone-and-tablet"){
+        display: block;
+    }
+}
+.desk-show{
+    display: none;
+    @include mq("lap-and-up"){
+        display: block;
+    }
+}

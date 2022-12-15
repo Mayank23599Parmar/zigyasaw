@@ -1,0 +1,36 @@
+development:
+  password: shptka_0e229a06be6e59bba51c2c79bd8f1bed
+  theme_id: "123975434338"
+  store: zigyasaw.myshopify.com
+  ignore_files:
+    - templates/*.json #ignoring these JSON files to prevent overriding Theme settings
+    - README.md
+    - .gitignore
+    - config/settings_data.json
+    - assets/bundle.js.map
+    - locales/
+    - "*.png"
+    - "*.jpg"  
+    - "*.jpeg" 
+    - "*.svg"
+    - "*.gif" 
+    - "*.mp4" 
+    - "*.js.map"
+production:
+  password: shptka_0e229a06be6e59bba51c2c79bd8f1bed
+  theme_id: "123975434338"
+  store: zigyasaw.myshopify.com
+  ignore_files:
+    - README.md
+    - .gitignore
+    - config/settings_data.json
+    - templates/*.json #ignoring these JSON files to prevent overriding Theme settings
+    - assets/bundle.js.map
+    - locales/
+    - "*.png"
+    - "*.jpg"  
+    - "*.jpeg" 
+    - "*.svg" 
+    - "*.gif" 
+    - "*.mp4" 
+    - "*.js.map"     

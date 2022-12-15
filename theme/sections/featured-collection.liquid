@@ -1,0 +1,180 @@
+<!---------- featured-collection ---------->
+
+<div class="featured-collection-section section-padding">
+    <div class="container">
+  
+      <!-- Heading & View all section Start -->
+      <!-- Heading & View all section End -->
+  
+      <!-- featured collection slider start -->
+      <div class="featured-collection-slider swiper">
+        <div class="swiper-wrapper">
+          {%- assign collection = collections[section.settings.collection] -%}
+  
+          {% for product in collection.products limit: section.settings.products_to_show %}
+          <div class="swiper-slide">
+            <div class="featured-product-block">
+              {% if product.featured_image != blank %}
+              <div class="featured-product-image">
+                
+                <a href="{{ product.url | within: collection }}">
+                  <div class="image">
+                    {% render 'srcset',src_name:product.featured_image,src_alt:product.featured_image.alt %}
+                  </div>
+                </a>
+                {% if product.tags contains 'best_seller_tag' %}
+                  <div class="product-badge">
+                    <span class="badge">Best Seller</span>
+                  </div>
+                {% endif %}
+                <div class="button-action">
+                  <a href="{{ product.url | within: collection }}" class="button primary-button button-full">Add to cart</a>
+                </div>
+              </div>
+              {% endif %}
+              <div class="featured-product-content">
+  
+                <div class="prouct-title">
+                  <h6 class="heading">
+                    <a href="{{ product.url | within: collection }}">{{ product.title | escape }}
+                    </a>
+                  </h6>
+                </div>
+  
+                <div class="product-price-wrapper">
+                  <div class="product-price">
+                    
+                    {% if product.compare_at_price > product.price %}
+                      <div class="compare-price-wrapper">
+                        <span class="regular-price">{{ product.price | money }}</span>
+                        <span class="compare-price">{{ product.compare_at_price | money }}</span>
+                      </div>
+                    {% else %}
+                      <div class="regular-price-wrapper">
+                        <div class="main-price">
+                          {{ product.price | money }}
+                        </div>
+                      </div>
+                    {% endif %}
+  
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {%- endfor -%}
+        </div>
+        <div class="swiper-button-prev">
+          {% render 'slider-arrow-left' %}              
+        </div>
+        <div class="swiper-button-next">
+          {% render 'slider-arrow-right' %}
+        </div>
+      </div>
+      <!-- featured collection slider end -->
+  
+    </div>
+  </div>
+  {% schema %}
+  {
+    "name": "Featured collection",
+    "class": "spaced-section",
+    "settings": [
+    {
+      "type": "header",
+      "content": "Header section"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Text"
+    },
+    {
+      "type": "select",
+      "label": "Text alignment",
+      "id": "header_alignment",
+      "options": [
+      {
+        "label": "Left",
+        "value": "text-left"
+      },
+      {
+        "label": "Center",
+        "value": "text-center"
+      },
+      {
+        "label": "Right",
+        "value": "text-right"
+      }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Collections"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Select collections"
+    },
+  
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 2,
+      "default": 4,
+      "label": "t:sections.featured-collection.settings.products_to_show.label"
+    },
+    {
+      "type": "header",
+      "content": "View all"
+    },
+    {
+      "type": "url",
+      "id": "view_all_url",
+      "label": "URL"
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all text"
+    },
+    {
+      "type": "select",
+      "label": "Text alignment",
+      "id": "view_all_alignment",
+      "options": [
+      {
+        "label": "Left",
+        "value": "text-left"
+      },
+      {
+        "label": "Center",
+        "value": "text-center"
+      },
+      {
+        "label": "Right",
+        "value": "text-right"
+      }
+      ]
+    }
+    ],
+    "presets": [
+    {
+      "name": "Featured collection"
+    }
+    ]
+  }
+  {% endschema %}

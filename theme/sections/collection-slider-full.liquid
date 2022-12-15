@@ -1,0 +1,170 @@
+<style>
+    .collection-slider-full-wrapper .section-heading-wrapper.section-{{section.id}} .section-heading {
+      color:{{section.settings.text_color}};
+      font-size:{{section.settings.font_size_title}}px;
+    }
+    .collection-slider-full-wrapper .section-heading-wrapper.section-{{section.id}} .section-description {
+      color:{{section.settings.text_color}};
+      font-size:{{section.settings.font_size_description}}px;
+    }
+  </style>
+  
+  {% comment %}:: Collection Slider full Start ::{% endcomment%}
+  <div class="collection-slider-full-wrapper">
+    <div class="page-width">
+      {% comment %}:: Section heading start ::{% endcomment %}
+      <div class="section-heading-wrapper text-{{ section.settings.text_alignment }} section-{{section.id}}">
+        {% unless section.settings.section_title == blank %}
+        <h3 class="section-heading">{{section.settings.section_title}}</h3>
+        {% endunless %}
+        {% unless section.settings.section_description == blank %}
+        <p class="section-description">{{section.settings.section_description}}</p>
+        {% endunless %}
+      </div>
+      {% comment %}:: Section heading end ::{% endcomment %}
+      <div class="collection-slider-wrapper" data-slides-to-show={{ section.settings.slides_to_show }}>
+        {% for product in collections[section.settings.collection_handle].products  limit: 8 %}
+          <div  class="product-slide slides-show-{{ section.settings.slides_to_show }} hide">
+            <a href="{{ product.url }}">
+              <div class="product-image-wrapper">
+                <div class="image">
+                  {%- render 'srcset', 
+                    src_alt:product.featured_image.alt,
+                    src_name:product.featured_image,
+                    load_blur:true 
+                    -%}
+                </div>
+                {% if product.images[1] != blank %}
+                  <div class="secondary-image">
+                    {%- render 'srcset', 
+                      src_alt:product.images[1].alt,
+                      src_name:product.images[1],
+                      load_blur:true 
+                      -%}
+                  </div>
+                {% endif %}
+              </div>
+              
+              {%comment%}
+              <div class="product-details-wrapper">
+                <div class="product-name"><p>{{ product.title }}</p></div>
+                <div class="product-price"><p>{{ product.price | money }}</p></div>
+              </div>
+              {%endcomment%}
+            </a>
+            <!-- CUSTOMIZED BY FLITS TEAM  START-->
+            <div class="product-details-wrapper">
+              <div class="flits-cus-child_1">
+                <div class="product-name"><p><a href="{{ product.url }}">{{ product.title }}</a></p></div>
+                <div class="product-price"><p>{{ product.price | money }}</p></div>
+              </div>
+            </div>
+            <!-- END -->
+          </div>
+        {% endfor %}
+      </div>
+      {% unless section.settings.button_url == blank %}
+      <div class="collection-btn-wrapper">
+        <a class="button button--primary" href="{{ section.settings.button_url }}">
+          {{ section.settings.button_text }}
+        </a>
+      </div>
+      {% endunless %}
+    </div>
+  </div>
+  {% comment %}:: Collection Slider full End ::{% endcomment%}
+  {% schema %}
+  {
+    "name": "Collection Slider [Full]",
+    "class": "collection-slider-full spaced-section spaced-section--full-width",
+    "settings": [
+    {
+      "type": "text",
+      "id": "section_title",
+      "label": "Section Title"
+    },
+    {
+      "type": "number",
+      "id": "font_size_title",
+      "label": "Font size title"
+    },
+    {
+      "type": "textarea",
+      "id": "section_description",
+      "label": "Section description"
+    },
+    {
+      "type": "number",
+      "id": "font_size_description",
+      "label": "Font size description"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text  alignment",
+      "default": "left",
+      "options": [
+      {
+        "value": "left",
+        "label": "Left"
+      },
+      {
+        "value": "right",
+        "label": "Right"
+      },
+      {
+        "value": "center",
+        "label": "Center"
+      }
+      ]
+    },
+    {
+      "type": "collection",
+      "id": "collection_handle",
+      "label": "Select collection"
+    },
+    {
+      "type": "select",
+      "id": "slides_to_show",
+      "label": "Slides to show",
+      "default": "6",
+      "options": [
+      {
+        "value": "3",
+        "label": "3"
+      },
+      {
+        "value": "4",
+        "label": "4"
+      },
+      {
+        "value": "6",
+        "label": "6"
+      }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "VIEW ALL"
+    },
+    {
+      "type": "url",
+      "id": "button_url",
+      "label": "Button URL"
+    }
+    ],
+    "presets": [
+    {
+      "name": "Collection Slider [Full]",
+      "category": "Collection"
+    }
+    ]
+  }
+  {% endschema %}

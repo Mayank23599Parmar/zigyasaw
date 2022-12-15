@@ -1,0 +1,74 @@
+/* featured collection section scss
+ *------------------------------------------------*/
+
+ .featured-collection-section {
+    .featured-collection-slider {
+      .featured-product-block {
+        background:#ffffff;
+        .featured-product-image {
+          position:relative;
+          overflow:hidden;
+          &:hover .button-action {
+            bottom: 1rem;
+          }
+          .product-badge {
+            position:absolute;
+            left:1rem;
+            top:1rem;
+            .badge {
+              background:#ffffff;
+              padding:.5rem 1rem;
+              font-size:1.2rem;
+              border-radius:0.3rem;
+              display:inline-block;
+            }
+          }
+          .button-action {
+            position: absolute;
+            left: 1rem;
+            bottom: -100%;
+            box-sizing: border-box;
+            transition:all 0.7s;
+            width: calc(100% - 2rem);
+            text-align: center;
+          }
+        }
+        .featured-product-content {
+          padding:1.5rem;
+          .prouct-title {
+            .heading {
+              a {
+                color:#262220;
+                font-size:1.4rem;
+                text-decoration:none;
+              }
+            }
+          }
+          .product-price-wrapper {
+            .product-price {
+              margin-top:0.5rem;
+              .compare-price-wrapper {
+                .regular-price {
+                  font-size:1.5rem; 
+   
+                }
+                .compare-price {
+                  font-size:1.5rem; 
+          
+                  margin-left:1rem;
+                  color:#A49A95;
+                  text-decoration: line-through;
+                }
+              }
+              .regular-price-wrapper {
+                .main-price {
+                  font-size:1.5rem;  
+            
+                }
+              }
+            }
+          }
+        }     
+      }
+    }
+  }

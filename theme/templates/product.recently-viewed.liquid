@@ -1,0 +1,37 @@
+{% layout none %}
+
+{%- if product.available -%}
+  {%- assign sold_out = false -%}
+{%- else -%}
+  {%- assign sold_out = true -%}
+{%- endif -%}
+
+{%- assign product_link = product.url | within: collection -%}
+
+<div class="rv-floating-bar-product">
+  {%- if product.featured_image -%}
+    <a href="{{ product_link }}"
+       class="image-link">
+
+      <div id="ProductImageWrapper-{{ product.featured_image.id }}"
+           class="product--wrapper media-wrapper"
+           style="padding-top: {{ 1 | divided_by: product.featured_image.aspect_ratio | times: 100 }}%;">
+
+        <img class="product--image media lazyload ProductImage-{{ product.featured_image.id }}"
+            {%- render 'lazysizes', img: product.featured_image, img_type: 'responsive' -%}
+             alt="{{ product.featured_image.alt }}">
+      </div>
+    </a>
+  {%- endif -%}
+</div>
+
+{%- assign desktop_grid = settings.dbtfy_recently_viewed_desktop_grid -%}
+{%- assign mobile_grid = settings.dbtfy_recently_viewed_mobile_grid -%}
+
+<div class="rv-section-product">
+  {%- capture grid_item_width -%}
+    {%- render 'product-width', desktop: desktop_grid, mobile: mobile_grid -%}
+  {%- endcapture -%}
+
+  {%- render 'product-grid-item' with product as product, grid_item_width: grid_item_width -%}
+</div>

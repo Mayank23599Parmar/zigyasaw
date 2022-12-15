@@ -1,0 +1,160 @@
+<div class="dbtfy-product_swatches"
+     data-show-in-product-grid="{{ section.settings.dbtfy_product_swatches_show_in_grid }}"
+     hidden>
+
+  {%- liquid
+    assign list_product_from_all_groups = ""
+    assign list_products_option_title = ""
+    assign list_groups = ""
+
+    for block in section.blocks
+      if block.type == "product" and block.settings.product != blank
+        if template contains 'customers/login' or template contains 'customers/activate_account' or template contains 'customers/reset_password'
+          assign product_handle = block.settings.product
+          assign current_product = all_products[product_handle]
+        else
+          assign current_product = block.settings.product
+        endif
+
+        assign list_product_from_all_groups = list_product_from_all_groups | append: ',' | append: current_product.handle
+        assign current_option_title = ""
+
+        if block.settings.option_name != blank
+          assign current_option_title = block.settings.option_name
+        else
+          assign current_option_title = current_product.title
+        endif
+
+        assign list_products_option_title = list_products_option_title | append: ',' | append: current_option_title
+      endif
+
+      if block.type == "group"
+        unless forloop.first or forloop.last
+          assign list_product_from_all_groups = list_product_from_all_groups | append: '::'
+          assign list_products_option_title = list_products_option_title | append: '::'
+        endunless
+
+        if block.settings.variant_title != blank
+          assign list_groups = list_groups | append: ',' | append: block.settings.variant_title
+        else
+          assign list_groups = list_groups | append: ',' | append: "_blank"
+        endif
+      endif
+    endfor
+
+    assign groups_array = list_groups | remove_first: ',' | strip | split: ','
+    assign list_product_from_all_groups_array = list_product_from_all_groups | strip | split: '::'
+    assign list_products_option_title_arrays = list_products_option_title | strip | split: '::'
+  -%}
+
+  {%- for group in groups_array -%}
+    {%- assign array_of_products = list_product_from_all_groups_array[forloop.index0] | remove_first: ',' | strip | split: ',' | uniq -%}
+    {%- assign array_of_options_titles = list_products_option_title_arrays[forloop.index0] | remove_first: ',' | strip | split: ',' -%}
+
+    {%- if array_of_products.size >= 1 -%}
+      <div class="ps-group">
+        {%- if group != "_blank" -%}
+          <label>
+            {{ group }}:
+            <span class="variant-label-option-value"></span>
+          </label>
+        {%- endif -%}
+
+        <ul>
+          {%- for product_handle in array_of_products -%}
+            {%- liquid
+              assign linked_product = blank
+
+              for block in section.blocks
+                if block.type == "product" and block.settings.product != blank
+                  assign block_product_handle = block.settings.product
+
+                  if block_product_handle == product_handle
+                    if template contains 'customers/login' or template contains 'customers/activate_account' or template contains 'customers/reset_password'
+                      assign linked_product = all_products[block_product_handle]
+                    else
+                      assign linked_product = block.settings.product
+                    endif
+
+                    break
+                  endif
+                endif
+              endfor
+            -%}
+
+            <li data-product-id="{{ linked_product.id }}" data-product-option="{{ array_of_options_titles[forloop.index0] }}">
+              <a href="{{ linked_product.url }}">
+                <img src="{{ linked_product.featured_image | img_url: "master" }}" alt="{{ linked_product.title }}">
+              </a>
+
+              <div class="tooltip spacer-bottom text-center">{{ linked_product.title }}</div>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
+</div>
+
+
+{% schema %}
+{
+  "name": "⚡ Product Swatches",
+  "class": "dbtfy-product-swatches-section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Help Center"
+    },
+    {
+      "type": "paragraph",
+      "content": "[Follow our step-by-step tutorial](https:\/\/help.debutify.com\/en\/articles\/5472573-how-to-use-product-swatches-add-on-in-debutify-shopify-theme)"
+    },
+    {
+      "type": "paragraph",
+      "content": "To enable/disable this add-on, go to Theme settings > Debutify Add-ons."
+    },
+    {
+      "type": "checkbox",
+      "id": "dbtfy_product_swatches_show_in_grid",
+      "label": "Show in product grid",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "group",
+      "name": "Group",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Group name"
+        },
+        {
+          "type": "text",
+          "id": "variant_title",
+          "label": "Variant name"
+        }
+      ]
+    },
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "option_name",
+          "label": "Option name",
+          "info": "If the field is empty, the product name will be used"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
