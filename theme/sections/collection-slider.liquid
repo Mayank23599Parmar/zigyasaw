@@ -1,9 +1,13 @@
 {%- comment -%} Collection Slider Color mayank {%- endcomment -%}
-<div class="collection-slider">
+{% style %}
+  .collection-feature-slider .collection-slider-heading-wrapper .collection-slider-title {
+    color: {{ section.settings.section_title_color}}}
+{% endstyle %}
+<div class="collection-feature-slider">
   <div class="container">
     {%- unless section.settings.section_title == blank -%}
       <div class="collection-slider-heading-wrapper">
-        <h3 class="collection-slider-title">{{ section.settings.section_title }}</h3>
+        <h3 class="collection-slider-title text-{{section.settings.text_alignment}}">{{ section.settings.section_title }}</h3>
       </div>
     {%- endunless -%}
     <div class="collection-slider-wrapper swiper">

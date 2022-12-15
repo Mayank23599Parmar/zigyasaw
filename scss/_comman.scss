@@ -1,0 +1,21 @@
+.mobile_show{
+    display: none;
+    @include mq("phone-and-tablet"){
+        display: block;
+    }
+}
+.desk-show{
+    display: none;
+    @include mq("lap-and-up"){
+        display: block;
+    }
+}
+.text-left{
+    text-align: left;
+}
+.text-right{
+    text-align: right;
+}
+.text-center{
+    text-align: center;
+}
