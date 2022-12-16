@@ -1,9 +1,236 @@
-.collection-feature-slider{
-    //collection title
-    .collection-slider-heading-wrapper{
+.collection-feature-slider {
+  padding: 50px 0;
 
-        .collection-slider-title{
+  //collection title
+  .collection-slider-heading-wrapper {
+    .collection-slider-title {
+      font-size: 32px;
+      font-weight: 500;
+      color: #121212;
+      position: relative;
+      margin-bottom: 30px;
+      &:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        height: 2px;
+        background: #5d890a;
+        width: 35%;
+        transform: translate(-50%);
+        bottom: -10px;
+      }
 
-        }
+      @include mq("phone") {
+        font-size: 24px;
+      }
     }
+  }
+  .collection-feature-slider-wrapper {
+    margin-top: 50px;
+    max-width: 95%;
+    padding: 0 40px;
+
+    @include mq("phone") {
+      max-width: 100%;
+      padding: 0 32px;
+    }
+
+    .swiper-wrapper {
+      padding: 50px 0 90px;
+
+      @include mq("phone") {
+        padding: 30px 0 50px;
+      }
+    }
+
+    .product-slide {
+      background-color: #fff;
+      padding: 30px 30px;
+      border-radius: 15px;
+      box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
+        rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+      transition: 0.5s;
+      transform: scale(0.9);
+
+      @include mq("phone") {
+        padding: 30px 20px;
+      }
+
+      a {
+        &:hover {
+          opacity: 1;
+        }
+      }
+
+      .product-image-wrapper {
+        position: relative;
+        overflow: hidden;
+
+        img {
+          width: 100%;
+          height: 100%;
+          height: 250px;
+          display: block;
+          object-fit: contain;
+        }
+
+        .image {
+          opacity: 1;
+          transition: 0.5s;
+        }
+
+        .secondary-image {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          opacity: 0;
+          left: 0;
+          top: 0;
+          transition: transform 5s, opacity 1s;
+        }
+
+        &:hover {
+          .image {
+            opacity: 0;
+          }
+          .secondary-image {
+            opacity: 1;
+            transform: scale(1.05);
+          }
+        }
+      }
+      .product-details-wrapper {
+        padding-top: 25px;
+
+        .product-name {
+          p {
+            font-size: 18px;
+            line-height: 1.2;
+
+            @include mq("phone") {
+              font-size: 16px;
+            }
+          }
+        }
+        .product-price-wrapper {
+          p {
+            font-size: 18px;
+            line-height: 1.2;
+            color: red;
+
+            @include mq("phone") {
+              font-size: 16px;
+            }
+          }
+        }
+        @include mq("phone-and-tablet") {
+          padding-top: 20px;
+        }
+      }
+
+      &.swiper-slide-active {
+        transform: scale(1);
+      }
+    }
+  }
+
+  //   Slick
+  .swiper-pagination {
+    left: 50%;
+    width: auto;
+    bottom: 14px;
+    display: flex !important;
+    gap: 10px;
+    transform: translateX(-50%);
+    @include flex-direction(row);
+    justify-content: center;
+    bottom: 0;
+
+    @include mq("phone-and-tablet") {
+      bottom: 0px;
+      right: 20px;
+      gap: 8px;
+      top: auto;
+    }
+
+    .swiper-pagination-bullet {
+      height: 9px;
+      width: 9px;
+      margin: 0;
+      transition: 0.5s;
+
+      @include mq("phone-and-tablet") {
+        height: 7px;
+        width: 7px;
+      }
+
+      &:before {
+        content: "";
+        opacity: 1;
+        line-height: 333px;
+        background: rgba(27, 27, 27, 0.7);
+        border-radius: 20px;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        transition: 0.5s;
+
+        @include mq("phone-and-tablet") {
+          background: rgba(27, 27, 27, 0.7);
+        }
+      }
+
+      &.swiper-pagination-bullet-active {
+        width: 24px;
+        border-radius: 30px;
+        background: rgba(27, 27, 27, 1);
+
+        &:before {
+          background: rgba(27, 27, 27, 1);
+          border-radius: 61px;
+          overflow: hidden;
+
+          @include mq("phone-and-tablet") {
+            background: rgba(27, 27, 27, 1);
+          }
+        }
+
+        @include mq("phone-and-tablet") {
+          width: 15px;
+        }
+      }
+    }
+  }
+  .swiper-button {
+    &:after {
+      content: "";
+      background-repeat: no-repeat;
+      background-size: contain;
+      background-position: center;
+    }
+  }
+  .swiper-button-prev {
+    left: 0px;
+    &::after {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M13.57 7.354a.77.77 0 0 0-1.088 0L9.104 10.73a1.795 1.795 0 0 0 0 2.538l3.378 3.377a.77.77 0 0 0 1.088-1.087l-3.378-3.378c-.1-.1-.1-.262 0-.362L13.57 8.44c.3-.3.3-.787 0-1.087Z' fill='%235d890a'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 3.538c-2.17 0-5.134.2-6.985.343a1.228 1.228 0 0 0-1.134 1.134C3.738 6.866 3.538 9.83 3.538 12s.2 5.134.343 6.985a1.228 1.228 0 0 0 1.134 1.134c1.851.143 4.816.343 6.985.343 2.17 0 5.134-.2 6.985-.343a1.229 1.229 0 0 0 1.134-1.134c.143-1.851.343-4.816.343-6.985 0-2.17-.2-5.134-.343-6.985a1.228 1.228 0 0 0-1.134-1.134c-1.851-.143-4.816-.343-6.985-.343Zm-7.104-1.19C6.748 2.203 9.766 2 12 2c2.235 0 5.252.204 7.104.347a2.767 2.767 0 0 1 2.549 2.55C21.796 6.747 22 9.764 22 12c0 2.235-.204 5.252-.347 7.104a2.767 2.767 0 0 1-2.55 2.549c-1.85.143-4.868.347-7.103.347-2.235 0-5.252-.204-7.104-.347a2.767 2.767 0 0 1-2.549-2.55C2.204 17.253 2 14.235 2 12c0-2.235.204-5.252.347-7.104a2.767 2.767 0 0 1 2.55-2.549Z' fill='%235d890a'/%3E%3C/svg%3E");
+    }
+
+    @include mq("tablet") {
+      left: 45%;
+      top: unset;
+      bottom: 15px;
+    }
+  }
+  .swiper-button-next {
+    right: 0px;
+    &::after {
+      background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M10.43 7.354c.3-.3.788-.3 1.088 0l3.378 3.377a1.795 1.795 0 0 1 0 2.538l-3.378 3.377a.77.77 0 0 1-1.088-1.087l3.378-3.378c.1-.1.1-.262 0-.362L10.43 8.44a.77.77 0 0 1 0-1.087Z' fill='%235d890a'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M12 3.538c-2.17 0-5.134.2-6.985.343a1.228 1.228 0 0 0-1.134 1.134C3.738 6.866 3.538 9.83 3.538 12s.2 5.134.343 6.985a1.228 1.228 0 0 0 1.134 1.134c1.851.143 4.816.343 6.985.343 2.17 0 5.134-.2 6.985-.343a1.229 1.229 0 0 0 1.134-1.134c.143-1.851.343-4.816.343-6.985 0-2.17-.2-5.134-.343-6.985a1.228 1.228 0 0 0-1.134-1.134c-1.851-.143-4.816-.343-6.985-.343Zm-7.104-1.19C6.748 2.203 9.766 2 12 2c2.235 0 5.252.204 7.104.347a2.767 2.767 0 0 1 2.549 2.55C21.796 6.747 22 9.764 22 12c0 2.235-.204 5.252-.347 7.104a2.767 2.767 0 0 1-2.55 2.549c-1.85.143-4.868.347-7.103.347-2.235 0-5.252-.204-7.104-.347a2.767 2.767 0 0 1-2.549-2.55C2.204 17.253 2 14.235 2 12c0-2.235.204-5.252.347-7.104a2.767 2.767 0 0 1 2.55-2.549Z' fill='%235d890a'/%3E%3C/svg%3E ");
+    }
+
+    @include mq("tablet") {
+      right: 45%;
+      top: unset;
+      bottom: 15px;
+    }
+  }
 }
