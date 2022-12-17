@@ -1,0 +1,143 @@
+{%- comment -%} :: HOME VIDEO SECTION START ::: {%- endcomment -%}
+<div class="video-section">
+  <div
+  data-section-id="{{ section.id }}"
+  data-section-type="video-section"
+  data-mobile-natural="false"
+  class="min-video-wrapper"
+  data-aos="hero__animation">
+
+  <div class="hero__media--{{ section.id }}">
+    {%- if video_url contains 'youtube.com/watch' -%}
+    {%- assign video_id = video_url | split: 'v=' -%}
+    {%- assign video_id = video_id[1] | split: '&' | first -%}
+    <div
+    id="YouTubeVideo-{{ section.id }}"
+    class="video-div"
+    data-type="youtube"
+    data-video-id="{{ video_id }}"></div>
+    {%- endif -%}
+
+    {%- if video_url contains 'youtu.be/' -%}
+    {%- assign video_id = video_url | split: '.be/' -%}
+    {%- assign video_id = video_id[1] | split: '&' | first -%}
+    <div
+    id="YouTubeVideo-{{ section.id }}"
+    class="video-div"
+    data-type="youtube"
+    data-video-id="{{ video_id }}"></div>
+    {%- endif -%}
+
+    {%- if video_url contains 'vimeo.com' -%}
+    <div class="video-wrap vimeo-video">
+      <div class="video-div xs-show">
+        <div class="mobile-video-wrapper">
+          {% if template contains 'index' %}
+            <img class='mobile-img' src="{{ section.settings.img_mobile | img_url: 'master' }}" />
+          {% endif %}
+          <div class="vimeo-div-wrap xs-show">
+            <iframe src="{{ video_url }}?badge=0&amp;loop=1&amp;controls=0&amp;muted=1&amp;player_id=0&amp;app_id=58479&amp;h=762b111445" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Lilanur Brand Campaign Film"></iframe>
+            <div class="mobile-play-icon xs-show">
+              <img src="{{ 'mobile-play.svg' | file_url }}" class="fullscreen-icon mobile-svg play" alt="{{ 'mobile-play.svg' | file_url }}"/>
+              <img src="{{ 'mobile-pause.svg' | file_url }}" class="fullscreen-icon mobile-svg pause" alt="{{ 'mobile-pause.svg' | file_url }}"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="volume-fullscreen-icon xs-hide">
+        <img src="{{ 'fullscreen.png' | file_url }}" class="fullscreen-icon" alt="{{ 'volume.svg' | file_url }}"/>
+      </div>
+      <div class="volume-sound-icon xs-hide">
+        <img src="{{ 'volume.svg' | file_url }}" class="sound-off volume-icon hide" alt="{{ 'volume.svg' | file_url }}"/>
+        <img src="{{ 'volume-mute.svg' | file_url }}" class="sound-on volume-icon" alt="{{ 'volume-mute.svg' | file_url }}"/>
+      </div>
+      <div class="desktop-vimeo-wrap vimeo-div-wrap xs-hide">
+        <iframe src="{{ video_url }}?badge=0&amp;autoplay=1&amp;loop=1&amp;background=1&amp;controls=1&amp;player_id=0&amp;app_id=58479&amp;h=762b111445" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;" title="Lilanur Brand Campaign Film"></iframe>
+      </div>
+      {% if template contains 'index' %}
+      {% unless section.settings.mobile_text == blank %}
+      <div class="mobile-text-wrapper">
+        <h3 class="mobile-text">{{section.settings.mobile_text}}</h3>
+        {%- unless section.settings.mobile_text_two == blank -%}
+          <h3 class="mobile-text">{{section.settings.mobile_text_two}}</h3>
+        {%- endunless -%}
+      </div>
+      {% endunless %}
+      {%- endif -%}
+      {% if template contains 'index' %}
+      <div class='text-wrap only-text-wrap'>
+        <div class="text-inner-wrap">
+          {%- unless section.settings.title == blank -%}
+            <h3 class="title">{{section.settings.title}}</h3>
+          {%- endunless -%}
+          {%- unless section.settings.title_data == blank -%}
+            <h3 class="title">{{section.settings.title_data}}</h3>
+          {%- endunless -%}
+      </div>
+      </div>
+        <div class="text-wrap">
+        <div class="text-inner-wrap">
+          <div class="button-section">
+            <div class="button">
+              <a href="{{section.settings.url}}" class="btn btn-primary home-shop-btn"><span>{{section.settings.btn_text}}</span></a>
+            </div>
+          </div>
+        </div>
+        </div>
+      {%- endif -%}
+    </div>
+    {%- endif -%}
+
+    {%- if video_url contains '.mp4' or video_url contains '.MP4' -%}
+      {% assign video_src = video_url %}
+      {% assign video_src_mobile = video_url %}
+      {% if template contains 'index' %}
+        {% assign video_src = section.settings.video_src %}
+        {% assign video_src_mobile = section.settings.video_src_mobile %}
+      {% endif %}
+    
+    <div class="video-wrap">
+      <div class="video-div xs-hide">
+        <video playsinline loop autoplay width="100%" height="auto" muted poster="{{section.settings.img_desktop | img_url: 'master' }}">
+          <source src="{{ video_src }}" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-div xs-show">
+        {% if template contains 'index' %}
+          <img class='mobile-img' src="{{ section.settings.img_mobile | img_url: 'master' }}" />
+        {%- endif -%}
+        <div class="mobile-video-wrapper">
+          <video playsinline loop width="100%" height="auto" autoload muted>
+            <source src="{{ video_src_mobile }}" type="video/mp4">
+          </video>
+          <div class="mobile-play-icon xs-show">
+            <img src="{{ 'mobile-play.svg' | file_url }}" class="fullscreen-icon mobile-svg play"/>
+            <img src="{{ 'mobile-pause.svg' | file_url }}" class="fullscreen-icon mobile-svg pause"/>
+          </div>
+        </div>
+      </div>
+      <div class="volume-fullscreen-icon xs-hide">
+          <img src="{{ 'fullscreen.png' | file_url }}" class="fullscreen-icon"/>
+      </div>
+      <div class="volume-sound-icon xs-hide">
+        <img src="{{ 'volume.svg' | file_url }}" class="sound-off volume-icon hide"/>
+        <img src="{{ 'volume-mute.svg' | file_url }}" class="sound-on volume-icon"/>
+      </div>
+      {% if template contains 'index' %}
+        <div class="text-wrap">
+          <div class="text-inner-wrap">
+            <h1 class="title">{{section.settings.title}}</h1>
+            <div class="button-section">
+              <div class="button">
+                <a href="{{section.settings.url}}" class="btn btn-primary home-shop-btn"><span>{{section.settings.btn_text}}</span></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%} 
+    </div>
+    {%- endif -%}
+  </div>
+</div>
+</div>
+{%- comment -%}::: HOME VIDEO SECTION END ::: {%- endcomment -%}

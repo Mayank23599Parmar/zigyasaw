@@ -1,0 +1,176 @@
+.template-index{
+    .image-with-text-wrapper {
+      @include mq("lap-and-up") {
+        padding-top:20px;
+      }
+      .feature-row__text{
+        /* Perticular small device so add important*/
+        @media(max-width:320px){
+          h2{
+            max-width:75% !important;
+          }
+        }
+        @include mq("phone") {
+          /* Perticular small device so add important*/
+          h2{
+            color:$color-grey-text !important;
+          }
+          p{
+            color:$font-gray;
+          }
+          .shop-btn-wrapper{
+            /* button  overlap so add important*/
+            .btn{
+              color:$color-grey-text !important;   
+            }
+          }
+        }
+      }
+      .featured-row__subtext{
+        p{
+          @include mq("tablet-and-up") {
+            font-size:17px;
+            line-height:25px;
+            font-weight:400;
+          }
+          @include mq("tablet-and-up") {
+            color:$color--black;
+          }
+        }
+      }
+    }
+    .button-wrapper {
+      .atc-homepage {
+        display:none;
+      }
+    }
+  }
+  .image-with-text-wrapper {
+    @include mq("tablet") {
+      margin: 30px 0px;
+    }
+    .page-width-full {
+      padding: 0 50px;
+      @include mq("phone") {
+        padding: 0 20px;
+        margin-top: 50px;
+        margin-bottom: 30px;
+      }
+    }
+    .feature-row {
+      .feature-row__text {
+        @media (min-width: 1366px) and (max-width: 1600px) {
+          min-width: 50% !important;
+          flex: 0 1 50% !important;
+        }
+        @include mq("desk-and-up") {
+          min-width: 40%;
+          flex: 0 1 40%;
+        }
+      }
+      .feature-image-wrapper {
+        @include mq("phone") {
+          margin-bottom: 10px;
+        }
+        @media (min-width: 1366px) and (max-width: 1600px) {
+          min-width: 50% !important;
+          flex: 0 1 50% !important;
+        }
+        @include mq("desk-and-up") {
+          min-width: 60%;
+          flex: 0 1 60%;
+        }
+      }
+      .feature-row__item {
+        h2 {
+          max-width: 60%;
+          @include mq("lap-and-desk") {
+            max-width: 100%;
+          }
+          @include mq("phone") {
+            font-size: 22px;
+          }
+        }
+        .featured-row__subtext p {
+          @include mq("phone") {
+            font-size: 14px;
+            max-width: 90%;
+            line-height:25px;
+          }
+        }
+        .button-wrapper {
+          margin-top: 20px;
+          @media(min-width: 1200px) and (max-width: 1366px){
+            max-width:100% !important;
+          }
+          @include mq("lap-and-up") {
+            max-width: 75%;
+          }
+          @include mq("phone") {
+            margin-top: 20px;
+          }
+          .btn {
+            background: transparent;
+            color: $color--dark-grey;
+            padding: 7px 10px;
+            font-size: 12px;
+            margin-top: 0px;
+            width: 50%;
+            font-family: $font-avenir-medium;
+            padding-top:11px;
+            border: 1px solid $border-color;
+            &:hover {
+              padding: 11px 10px 7px 10px !important;
+              border: 1px solid $color--light-yellow;
+              color: $color--light-yellow;
+            }
+            @include mq("phone") {
+              display: block;
+              background: $color--white;
+              width: 100%;
+              border: 1px solid $color--black;
+              padding: 10px 20px;
+              color: $color--black;
+              font-size: 13px;
+            }
+          }
+          .add-to-cart {
+            text-transform: uppercase;
+            font-size: 10px;
+            vertical-align: middle;
+            font-family: $font-avenir-medium;
+            color: $color--dark-grey;
+            &.btn--loading {
+              width: 110px;
+              padding: 5px;
+            }
+            @include mq("phone") {
+              display: none;
+            }
+          }
+          .plus-icon {
+            margin-left: 5px;
+            width: 25px;
+            height: 25px;
+            line-height: 28px;
+            font-size: 20px;
+            display: inline-block;
+            background: $color--light-yellow;
+            text-align: center;
+            color: $color--white;
+            border-radius: 50px;
+            vertical-align: middle;
+            @include mq("phone") {
+              display: none;
+            }
+          }
+        }
+      }
+    }
+  }
+  //Instagram Feed css
+  #insta-feed {
+    display: block;
+    margin-bottom: 50px !important;
+  }
+  

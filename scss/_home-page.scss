@@ -1,7 +1,7 @@
 // home page scss
 .index-sections {
-    /* Collection Slider [Full] Section Start */
-.collection-slider-full-wrapper {
+  /* Collection Slider [Full] Section Start */
+  .collection-slider-full-wrapper {
     @include mq("phone") {
       margin-bottom: 7rem;
     }
@@ -17,7 +17,6 @@
         }
         .product-name {
           p {
-            
             font-size: 1.2rem;
             margin-bottom: 0.5rem;
           }
@@ -25,7 +24,7 @@
         .product-price {
           p {
             margin-top: 0.5rem;
-        
+
             font-size: 1.2rem;
           }
         }
@@ -38,8 +37,7 @@
             bottom: 0;
             left: 0;
             right: 0;
-            transition: opacity 0.5s ease,
-              transform 2s cubic-bezier(0, 0, 0.44, 1.18);
+            transition: opacity 0.5s ease, transform 2s cubic-bezier(0, 0, 0.44, 1.18);
             opacity: 0;
           }
         }
@@ -75,7 +73,7 @@
         }
       }
     }
-  
+
     .collection-btn-wrapper {
       margin-top: 5rem;
       text-align: center;
@@ -102,117 +100,118 @@
     }
   }
   /* Collection Slider [Full] Section End */
-  
-    .hero-container {
-        .hero-video-desk {
-            display: none;
-            @include mq("tablet-and-up") {
-                display: block;
-            }
-        }
-        .hero-video-mobile {
-            display: none;
-            @include mq("phone") {
-                display: block;
-                height: calc(100vh - 96px);
-            }
-        }
+
+  .hero-container {
+    .hero-video-desk {
+      display: none;
+      @include mq("tablet-and-up") {
+        display: block;
+      }
     }
-    // image slider
-    .box {
-        .wrapper {
-            .section-header {
-                .section-header__title {
-                    font-size: 32px;
-                    font-weight: 500;
-                    color: #121212;
-                    position: relative;
-                    margin-bottom: 30px;
-                    &::after {
-                        position: absolute;
-                        content: "";
-                        /* top: 100%; */
-                        left: 50%;
-                        height: 2px;
-                        background: #5d890a;
-                        width: 35%;
-                        transform: translateX(-50%);
-                        bottom: -10px;
-                    }
-                    @include mq("phone") {
-                        font-size: 24px;
-                        margin-bottom: 20px;
-                    }
-                }
-            }
-            .grid-spacer {
-                .slick-list {
-                    .grid__item {
-                        padding: 0;
-                        border-radius: 10px;
-                        padding: 20px;
-                        border: 1px solid #fafafa;
-                        box-shadow: 0 0 1.7px #00000005, 0 3.4px 10.2px #00000005, 0 27.2px 40.8px #00000008;
-                    }
-                }
-                .slick-dots {
-                    li {
-                        &.slick-active{
-                            color: #5d890a;
-                        } 
-                        
-                    }
-                }
-            }
-        }
+    .hero-video-mobile {
+      display: none;
+      @include mq("phone") {
+        display: block;
+        height: calc(100vh - 96px);
+      }
     }
-    .quotes-section {
-        .card {
-            .card-header {
-                img {
-                    width: 100%;
-                    height: auto;
-                    max-width: 250px;
-                    border-radius: 100%;
-                    @include mq("phone"){
-                        max-width: 180px;
-                    }
-                }
-            }
-            .card-body {
-                &.card-body-lg {
-                    padding: 15px;
-                    justify-content: flex-start;
-                }
-                .rte {
-                    p {
-                        line-height: 1.5;
-                        letter-spacing: 1px;
-                        font-size: 18px;
-                        font-weight: 500;
-                        color: #121212;
-                    }
-                }
-            }
+  }
+  // image slider
+  .box {
+    .wrapper {
+      .section-header {
+        .section-header__title {
+          font-size: 32px;
+          font-weight: 500;
+          color: #121212;
+          position: relative;
+          margin-bottom: 30px;
+          &::after {
+            position: absolute;
+            content: "";
+            /* top: 100%; */
+            left: 50%;
+            height: 2px;
+            background: #5d890a;
+            width: 35%;
+            transform: translateX(-50%);
+            bottom: -10px;
+          }
+          @include mq("phone") {
+            font-size: 24px;
+            margin-bottom: 20px;
+          }
         }
-    }
-    .featured-row-section{
-        @include mq("phone-and-tablet"){
-            .wrapper{
-                .grid{
-                    .media-wrapper{
-                        position: static;
-                        overflow: visible;
-                        padding: 0 9 !important;
-                        .media{
-                            position: static;
-                            overflow: visible;
-                        }
-                    }
-                    
-                }
-            }
+      }
+      .grid-spacer {
+        .slick-list {
+          .grid__item {
+            padding: 0;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #fafafa;
+            box-shadow: 0 0 1.7px #00000005, 0 3.4px 10.2px #00000005, 0 27.2px 40.8px #00000008;
+          }
         }
-        
+        .slick-dots {
+          li {
+            &.slick-active {
+              color: #5d890a;
+            }
+          }
+        }
+      }
     }
+  }
+  .quotes-section {
+    .card {
+      .card-header {
+        img {
+          width: 100%;
+          height: auto;
+          max-width: 250px;
+          border-radius: 100%;
+          @include mq("phone") {
+            max-width: 180px;
+          }
+        }
+      }
+      .card-body {
+        &.card-body-lg {
+          padding: 15px;
+          justify-content: flex-start;
+        }
+        .rte {
+          p {
+            line-height: 1.5;
+            letter-spacing: 1px;
+            font-size: 18px;
+            font-weight: 500;
+            color: #121212;
+            display: -webkit-box;
+            -webkit-line-clamp: 10;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+        }
+      }
+    }
+  }
+  .featured-row-section {
+    @include mq("phone-and-tablet") {
+      .wrapper {
+        .grid {
+          .media-wrapper {
+            position: static;
+            overflow: visible;
+            padding: 0 9 !important;
+            .media {
+              position: static;
+              overflow: visible;
+            }
+          }
+        }
+      }
+    }
+  }
 }

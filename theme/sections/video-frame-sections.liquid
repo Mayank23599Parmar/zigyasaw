@@ -1,0 +1,152 @@
+<!-- home-video-section -->
+<style>
+  .home-video-wrap .text-wrap {
+    bottom: {{ section.settings.btn_verticle_position }}
+    %;
+    left: {{ section.settings.btn_horizontal_position }}
+    %;
+  }
+  @media(max-width: 767px) {
+    .home-video-wrap .text-wrap {
+      bottom: {{ section.settings.btn_verticle_position_responsive }}
+      %;
+      left: {{ section.settings.btn_horizontal_position_responsive }}
+      %;
+    }
+  }
+  .home-video-wrap .text-inner-wrap .title {
+    color: {{ section.settings.text_color}};
+  }
+  .home-video-wrap .text-inner-wrap .description {
+    color: {{ section.settings.text_color}};
+  }
+  .mobile-text-wrapper .mobile-text {
+    color: {{ section.settings.mobile_text_color}};
+  }
+</style>
+<div class="home-video-wrap">
+  <div class="video-inner-wrap">
+    {% render 'video-section-home', video_url: section.settings.video_src %}
+  </div>
+  <div class="text-wrap-mobile xs-show">
+    <h4 class="title">{{ section.settings.title_mobile }}</h4>
+    <p class="para">{{ section.settings.para_mobile }}</p>
+  </div>
+
+</div>
+{% schema %}
+  {
+    "name": "Home video section",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "img_desktop",
+        "label": "Image desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "img_mobile",
+        "label": "Image mobile"
+      },
+      {
+        "type": "text",
+        "id": "video_src",
+        "label": "Video URL - Desktop",
+        "default": "https://player.vimeo.com/video/588974664",
+        "info": "Supports .MP4 and Vimeo. Not all features supported by Vimeo. [Learn more](https://archetypethemes.co/blogs/motion/how-do-i-add-background-videos)"
+      },
+      {
+        "type": "text",
+        "id": "video_src_mobile",
+        "label": "Video URL - Mobile",
+        "default": "https://player.vimeo.com/video/588974664",
+        "info": "Supports .MP4 and Vimeo. Not all features supported by Vimeo. [Learn more](https://archetypethemes.co/blogs/motion/how-do-i-add-background-videos)"
+      }, {
+        "type": "image_picker",
+        "id": "video_mobile_thumbnail",
+        "label": "Video thumbnail - Mobile"
+      }, {
+        "type": "text",
+        "id": "title",
+        "label": "Title"
+      }, {
+        "type": "header",
+        "content": "Mobile text & color"
+      }, {
+        "type": "textarea",
+        "id": "mobile_text",
+        "label": "Mobile text"
+      }, {
+        "type": "textarea",
+        "id": "mobile_text_two",
+        "label": "Mobile text 2"
+      }, {
+        "type": "color",
+        "id": "mobile_text_color",
+        "label": "Mobile text color"
+      }, {
+        "type": "textarea",
+        "id": "title_data",
+        "label": "Content"
+      }, {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color"
+      }, {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button text"
+      }, {
+        "type": "text",
+        "id": "hover_btn_text",
+        "label": "Hover Button text"
+      }, {
+        "type": "url",
+        "id": "url",
+        "label": "Button url"
+      }, {
+        "type": "range",
+        "id": "btn_verticle_position",
+        "label": "Button verticle position",
+        "default": 10,
+        "max": 90,
+        "min": 0
+      }, {
+        "type": "range",
+        "id": "btn_horizontal_position",
+        "label": "Button horizontal position",
+        "default": 45,
+        "max": 90,
+        "min": 0
+      }, {
+        "type": "range",
+        "id": "btn_verticle_position_responsive",
+        "label": "Button verticle position[responsive]",
+        "default": 70,
+        "max": 90,
+        "min": 0
+      }, {
+        "type": "range",
+        "id": "btn_horizontal_position_responsive",
+        "label": "Button horizontal position[responsive]",
+        "default": 0,
+        "max": 90,
+        "min": 0
+      }, {
+        "type": "text",
+        "id": "title_mobile",
+        "label": "Title mobile"
+      }, {
+        "type": "textarea",
+        "id": "para_mobile",
+        "label": "Info mobile"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Video section",
+        "category": "Video"
+      }
+    ]
+  }
+{% endschema %}

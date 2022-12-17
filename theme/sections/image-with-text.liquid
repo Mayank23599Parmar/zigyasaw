@@ -1,0 +1,196 @@
+{%- if section.settings.divider -%}<div class="section--divider">{%- endif -%}
+    <style>
+      .image-with-text-wrapper.section-{{ section.id}} .h3{
+        font-size:{{section.settings.title_font_size}}px;  
+      }
+      .image-with-text-wrapper.section-{{ section.id}} p{
+        font-size:{{section.settings.text_font_size}}px;  
+      }
+    </style>
+  <div class="image-with-text-wrapper parfume-bottom section-{{ section.id}}">
+    <div class="{% if section.settings.full %}page-width-full{% else %}page-width{% endif%}">
+      {% capture image_layout %}
+        <div class="feature-row__item feature-image-wrapper">
+          <div>
+            {% if section.settings.image != blank %}
+              {% if section.settings.button_label != blank and section.settings.button_link != blank %}<a href="{{ section.settings.button_link }}" aria-label="{{ section.settings.button_label | escape }}">{% endif %}
+              {% if collection.handle == "eau-de-parfum" %}
+                <div class="image-wrap xs-hide">
+                  {%- assign img_url = section.settings.image_reverse_responsive | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                  <img class="feature-row__image lazyload"
+                      data-src="{{ img_url }}"
+                      data-widths="[180, 360, 540, 720, 900, 1080]"
+                      data-aspectratio="{{ section.settings.image_reverse_responsive.aspect_ratio }}"
+                      data-sizes="auto"
+                      alt="{{ section.settings.image_reverse_responsive.alt }}">
+                </div>
+                {% else %}
+                <div class="image-wrap xs-hide">
+                  {%- assign img_url = section.settings.image | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                  <img class="feature-row__image lazyload"
+                      data-src="{{ img_url }}"
+                      data-widths="[180, 360, 540, 720, 900, 1080]"
+                      data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                      data-sizes="auto"
+                      alt="{{ section.settings.image.alt }}">
+                </div>
+              {% endif %}
+  
+              <div class="image-wrap xs-show">
+                {%- assign img_url = section.settings.image_responsive | img_url: '1x1' | replace: '_1x1.', '_{width}x.' -%}
+                <img class="feature-row__image lazyload"
+                    data-src="{{ img_url }}"
+                    data-widths="[180, 360, 540, 720, 900, 1080]"
+                    data-aspectratio="{{ section.settings.image_responsive.aspect_ratio }}"
+                    data-sizes="auto"
+                    alt="{{ section.settings.image_responsive.alt }}">
+              </div>
+              {% if section.settings.button_label != blank and section.settings.button_link != blank %}</a>{% endif %}
+            {% else %}
+              <div class="image-wrap">
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endcapture %}
+  
+      <div class="feature-row {% if collection.handle == "eau-de-parfum" %}revers-direction{% endif %} {% if collection.handle == "all" %}collection-all{% endif %}" data-aos>
+        {% if section.settings.layout == 'left' %}
+          {{ image_layout }}
+        {% endif %}
+  
+        <div class="feature-row__item feature-row__text feature-row__text--{{ section.settings.layout }} larger-text">
+          {% if section.settings.subtitle != blank %}
+            <p class="subtitle">{{ section.settings.subtitle }}</p>
+          {% endif %}
+          {%- if section.settings.title != blank -%}
+            <a href="{{ section.settings.button_link }}" class="title-link">
+              <h2 class="h3">{{ section.settings.title | escape }}</h2>
+            </a>
+          {% endif %}
+          {% if section.settings.text != blank %}
+            <a href="{{ section.settings.button_link }}" class="title-link">
+              <div class="rte featured-row__subtext">{{ section.settings.text }}</div>
+            </a>
+          {% endif %}
+   
+          <div class="button-wrapper shop-btn-wrapper">
+           {% if section.settings.button_label != blank %}
+           <a href="{{ section.settings.button_link }}" class="btn">
+            {{ section.settings.button_label }}
+          </a>
+          {% endif %}
+          {% assign product_item = all_products[section.settings.product] %}
+         
+        </div>
+   
+        </div>
+  
+        {% if section.settings.layout == 'right' %}
+          {{ image_layout }}
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  
+  {%- if section.settings.divider -%}</div>{%- endif -%}
+  
+  {% schema %}
+    {
+      "name": "Image with text",
+      "settings": [
+        {
+          "type": "checkbox",
+          "id": "full",
+          "label": "Full width",
+          "default": true
+        },
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_responsive",
+          "label": "Image[mobile]" 
+        },
+      
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subheading",
+          "default": "Improved"
+        },
+        {
+          "type": "text",
+          "id": "title_font_size",
+          "label": "Font size for tilte"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Image with text"
+        },
+        {
+          "type": "text",
+          "id": "text_font_size",
+          "label": "Font size for text"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Pair large text with an image to tell a story, explain a detail about your product, or describe a new promotion.</p>"
+        },
+       
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button label",
+          "default": "Optional button"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button link"
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Layout",
+          "default": "left",
+          "options": [
+            {
+              "value": "left",
+              "label": "Image on left"
+            },
+            {
+              "value": "right",
+              "label": "Image on right"
+            }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "divider",
+          "label": "Show section divider",
+          "default": false
+        }
+      ],
+      "presets": [
+        {
+          "name": "Image with text",
+          "category": "Image"
+        }
+      ]
+    }
+  {% endschema %}
+  
